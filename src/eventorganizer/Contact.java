@@ -8,7 +8,7 @@ Then, additional lines of description to elaborate the details if necessary.
 public class Contact {
     private Department department;
     private String email;
-
+//test
     /**
      * EDIT
     Check if the contact object is valid by checking if the email is in the correct format and if the department value is correct
