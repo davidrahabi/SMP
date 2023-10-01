@@ -7,7 +7,12 @@ public class Date implements Comparable<Date> { // add comparable method
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
 
-    
+    Date(String date){
+        String [] splitD = date.split("/");
+        this.month = Integer.parseInt(splitD[0]);
+        this.day = Integer.parseInt(splitD[1]);
+        this.year = Integer.parseInt(splitD[2]);
+    }
     public boolean isValid() { // check if the date is a valid calendar date
         if (this.year > 1900) {
             switch (this.month) {

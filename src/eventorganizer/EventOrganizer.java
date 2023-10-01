@@ -23,25 +23,22 @@ public class EventOrganizer{
                 break; }
             switch(input){
                 case "A": case "R":
-                    String[] dateNums=scanner.next().split("/");
-                    Date date = new Date(Integer.parseInt(dateNums[0]), Integer.parseInt(dateNums[1]), Integer.parseInt(dateNums[2]));
-                    Timeslot timeslot=createTimeslot(scanner.next());
+                    Date date = new Date(scanner.next());
+                    Timeslot timeslot = createTimeslot(scanner.next());
                     if(timeslot==null){ scanner.nextLine(); //going to next input line
                                         break;       }
                     Location location = createLocation(scanner.next());
                     if(location==null){ scanner.nextLine();
                                         break;       }
-                    switch(input){
-                        case "A":
-                            Department department = createDepartment(scanner.next());
-                            if(department==null){ scanner.nextLine();
-                                                break;     }
-                            Contact contact = new Contact(department, scanner.next());
-                           calendar.add(new Event(date,timeslot,location, contact, scanner.nextInt()));
-
-                            break;
-                        case "R":
-                            calendar.remove(new Event(date,timeslot,location));}
+                    if (input.equals("A")){
+                    Department department = createDepartment(scanner.next());
+                    if(department==null){ scanner.nextLine();
+                        break;     }
+                    Contact contact = new Contact(department, scanner.next());
+                    calendar.add(new Event(date,timeslot,location, contact, scanner.nextInt()));
+                    } else if (input.equals("R")) {
+                        calendar.remove(new Event(date,timeslot,location));
+                    }
                     break;
                 case "P":
                     calendar.print();
@@ -66,7 +63,6 @@ public class EventOrganizer{
         else if(time.toLowerCase().equals("evening"))return Timeslot.EVENING;
         System.out.println("Invalid time slot!");
         return null;
-                    
     }
 
     public Location createLocation(String location){
