@@ -100,4 +100,36 @@ public class Date implements Comparable<Date> { // add comparable method
          * NEED TO CHECK IS THIS IS OK TO DO/ THIS IS HOW WE ARE SUPPOSED TO DO THIS
          */
     }
+    public static  void main(String[] args){
+        testDaysInFeb_NonLeap();
+        testDaysInFeb_Leap();
+    }
+
+    /** Test Case #1 */
+    private static void testDaysInFeb_NonLeap(){
+        Date date = new Date(2, 29, 2011);
+        boolean expectedOutput = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("**Test case #1: # of days in Feb. in a non-leap year is 28");
+        testResult(date, expectedOutput, actualOutput);
+    }
+    /** Test Case 2*/
+    public static void testDaysInFeb_Leap(){
+        Date date = new Date(2, 29, 2012);
+        boolean expectedOutput = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("**Test case #2: # of days in Feb. in a non-leap year is 29");
+        testResult(date, expectedOutput, actualOutput);
+    }
+
+
+
+    public static void testResult(Date date, boolean expectedOutput, boolean actualOutput){
+        if (expectedOutput == actualOutput){
+            System.out.println(true);
+        }
+        else {
+            System.out.println(false);
+        }
+    }
 }
