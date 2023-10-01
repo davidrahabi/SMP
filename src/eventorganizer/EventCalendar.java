@@ -1,4 +1,7 @@
 package eventorganizer;
+
+import java.sql.SQLOutput;
+
 public class EventCalendar {
     private Event [] events; //the array holding the list of events
     private int numEvents; //current number of events in the array
@@ -12,13 +15,14 @@ public class EventCalendar {
     }
 
     private int find(Event event) {//search an event in the list
+        final int NOT_FOUND = -1;
     for (int i = 0; i < numEvents; i++){
         if (events[i].equals(event)){
             return i;
         }
         
         }
-        return -1;
+        return NOT_FOUND;
     } 
     private void grow() { //increase the capacity by 4
         this.size = size + 4;
@@ -33,12 +37,23 @@ public class EventCalendar {
     } 
 
     public boolean add(Event event) {
+        if(numEvents>0 && find(event)!=-1){
+            System.out.println("Duplicate Event!");
+            return false;
+        }
+
         if(event.getDate().isValid()==false){
-            System.out.println("Invalid Date!");
+            System.out.print("\n"+event.getDate().getMonth()+"/"+event.getDate().getDay()+"/"
+                    +event.getDate().getYear()+": Invalid Date!");
+
             return false;
         }
         if(event.getContact().isValid()==false){
             System.out.println("Invalid Contact!");
+            return false;
+        }
+        if(event.getDuration()>120){
+            System.out.println("Invalid Duration!");
             return false;
         }
 
@@ -54,6 +69,10 @@ public class EventCalendar {
 
     public boolean remove(Event event) {
         int rm = find(event);
+        if(rm==-1){
+            System.out.println("Cannot Remove: Event Does Not Exist");
+            return false;
+        }
         Event[] removeEvent = new Event[size]; //does she want us to decrease array size when removed?
         for (int i = 0; i < numEvents; i++){
             if (i != rm){
@@ -107,7 +126,8 @@ public class EventCalendar {
                     if(events[j].getLocation().getCampus().equals("Busch")){
                         for(int z=0;z<sortedEvents.length;z++){ 
                             if(sortedEvents[z]==null) {
-                            sortedEvents[z]=events[j]; 
+                            sortedEvents[z]=events[j];
+                            break;
                             }
                         }
                     }
@@ -115,7 +135,8 @@ public class EventCalendar {
                     if(events[j].getLocation().getCampus().equals("College Avenue")){
                         for(int z=0;z<sortedEvents.length;z++){ 
                             if(sortedEvents[z]==null) {
-                            sortedEvents[z]=events[j]; 
+                            sortedEvents[z]=events[j];
+                            break;
                             }
                         }
                     }
@@ -123,7 +144,8 @@ public class EventCalendar {
                     if(events[j].getLocation().getCampus().equals("Livingston")){
                         for(int z=0;z<sortedEvents.length;z++){ 
                             if(sortedEvents[z]==null) {
-                            sortedEvents[z]=events[j]; 
+                            sortedEvents[z]=events[j];
+                            break;
                             }
                         }
                     }
@@ -141,29 +163,37 @@ public class EventCalendar {
             for(int j=0; j<numEvents;j++){
                 if(i==0){
                     if(events[j].getContact().getDepartment().getDepartmentName().equals("Business Analytics and Information Technology")){
-                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {sortedEvents[z]=events[j];}
+                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {
+                            sortedEvents[z]=events[j];
+                            break;}
                         }
                     }
                 }else if(i==1){
                     if(events[j].getContact().getDepartment().getDepartmentName().equals("Computer Science")){
-                        for(int z=0;z<sortedEvents.length;z++){ if(sortedEvents[z]==null) {sortedEvents[z]=events[j];}
+                        for(int z=0;z<sortedEvents.length;z++){ if(sortedEvents[z]==null) {
+                            sortedEvents[z]=events[j];
+                            break;}
                         }
                     }
                 }else if(i==2){
                     if(events[j].getContact().getDepartment().getDepartmentName().equals("Electrical Engineering")){
-                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {sortedEvents[z]=events[j];}
+                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {
+                            sortedEvents[z]=events[j];
+                        break;}
                         }
                     }
                 }
                 else if(i==3){
                     if(events[j].getContact().getDepartment().getDepartmentName().equals("Information Technology and Informatics")){
-                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {sortedEvents[z]=events[j];}
+                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {sortedEvents[z]=events[j];
+                        break;}
                         }
                     }
                 }
                 else if(i==4){
                     if(events[j].getContact().getDepartment().getDepartmentName().equals("Mathematics")){
-                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {sortedEvents[z]=events[j];}
+                        for(int z=0;z<sortedEvents.length;z++){if(sortedEvents[z]==null) {sortedEvents[z]=events[j];
+                        break;}
                         }
                     }
                 }

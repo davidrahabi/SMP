@@ -21,6 +21,7 @@ public class Contact {
             return false;
         }
 
+
         int amountOfAts=0;
         for(int i=0;i<email.length();i++){
             if(email.charAt(i)=='@'){
