@@ -1,4 +1,6 @@
 package eventorganizer;
+import java.util.Calendar;
+
 public class Date implements Comparable<Date> { // add comparable method
     private int year;
     private int month;
@@ -7,8 +9,17 @@ public class Date implements Comparable<Date> { // add comparable method
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
 
-    
+    Date(String date){
+        String [] splitD = date.split("/");
+        this.month = Integer.parseInt(splitD[0]);
+        this.day = Integer.parseInt(splitD[1]);
+        this.year = Integer.parseInt(splitD[2]);
+    }
     public boolean isValid() { // check if the date is a valid calendar date
+        if(!checkDate(this.month, this.day, this.year)){
+            return false;
+        }
+
         if (this.year > 1900) {
             switch (this.month) {
                 case 1: case 3: case 5: case 7: case 8: case 10: case 12:
@@ -46,6 +57,22 @@ public class Date implements Comparable<Date> { // add comparable method
             }
         }
         return false;
+    }
+
+    //an extension of isValid to check if date is in the past or greater than 6 months from today
+    public boolean checkDate(int month, int day, int year){
+        Calendar calendar = Calendar.getInstance();
+        if(this.year < calendar.get(Calendar.YEAR) || (this.year==calendar.get(Calendar.YEAR) && this.month < calendar.get(Calendar.MONTH)+1) ||
+                (this.year==calendar.get(Calendar.YEAR) && this.month < calendar.get(Calendar.MONTH)+1 && this.day < calendar.get(Calendar.DAY_OF_MONTH))){
+            System.out.println(this.month+"/"+this.month+"/"+this.year+": Event date must be a future date!");
+            return false;
+        }
+        calendar.add(calendar.MONTH, 6);
+        if(year>calendar.YEAR || (year==calendar.YEAR && month>calendar.MONTH+1) || (year==calendar.YEAR && month==calendar.MONTH+1 && day>calendar.DAY_OF_MONTH)){
+            System.out.println(this.month+"/"+this.month+"/"+this.year+": Event date must be within 6 months!");
+            return false;
+        }
+        return true;
     }
 
     Date(int month, int day, int year){

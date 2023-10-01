@@ -42,13 +42,12 @@ public class EventCalendar {
             return false;
         }
 
-        if(event.getDate().isValid()==false){
+        if(!event.getDate().isValid()){
             System.out.print("\n"+event.getDate().getMonth()+"/"+event.getDate().getDay()+"/"
                     +event.getDate().getYear()+": Invalid Date!");
-
             return false;
         }
-        if(event.getContact().isValid()==false){
+        if(!event.getContact().isValid()){
             System.out.println("Invalid Contact!");
             return false;
         }
@@ -56,7 +55,6 @@ public class EventCalendar {
             System.out.println("Invalid Duration!");
             return false;
         }
-
 
         if (this.numEvents == this.size){
             grow();
@@ -66,7 +64,6 @@ public class EventCalendar {
         System.out.println("Event added to calendar!");
         return true;
     }
-
 
     public boolean remove(Event event) {
         int rm = find(event);
