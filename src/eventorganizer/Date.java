@@ -16,60 +16,61 @@ public class Date implements Comparable<Date> { // add comparable method
         this.year = Integer.parseInt(splitD[2]);
     }
     public boolean isValid() { // check if the date is a valid calendar date
-        if(!checkDate(this.month, this.day, this.year)){
+        if(!checkIfDateIsCorrect() || !checkDate(this.month, this.day, this.year) ){
             return false;
         }
+        return true;
+    }
 
+    public boolean checkIfDateIsCorrect(){
         if (this.year > 1900) {
             switch (this.month) {
                 case 1: case 3: case 5: case 7: case 8: case 10: case 12:
                     if (this.day >= 1 && this.day <= 31) {
-                        return true;
+                        break;
                     }
-                    break;
+                    System.out.println(this.month+"/"+this.day+"/"+this.year+": Invalid Calendar Date!");
+                    return false;
                 case 4: case 6: case 9: case 11:
                     if (this.day >= 1 && this.day <= 30) {
-                        return true;
+                        break;
                     }
-                    break;
+                    System.out.println(this.month+"/"+this.day+"/"+this.year+": Invalid Calendar Date!");
+                    return false;
                 case 2:
                     if (this.year % QUADRENNIAL == 0) {
                         if (this.year % CENTENNIAL == 0) {
                             if (this.year % QUATERCENTENNIAL == 0) {
-                                if (this.day <= 28 && this.day >= 1) {
-                                    return true;
+                                if (this.day <= 29 && this.day >= 1) {
                                 }
-                                break;
-                            } else if (this.day <= 29 && this.day >= 1){
-                                return true;
+                            } else if (this.day <= 28 && this.day >= 1){
                             }
-                            break;
                         } else if (this.day <= 29 && this.day >= 1){
-                            return true;
                         }
-                        break;
                     } else if (this.day <= 28 && this.day >= 1){
-                        return true;
+                    }else{
+                        System.out.println(this.month+"/"+this.day+"/"+this.year+": Invalid Calendar Date!");
+                        return false;
                     }
-                    break;
-                default:
-                    return false;
             }
         }
-        return false;
+        return true;
     }
-
     //an extension of isValid to check if date is in the past or greater than 6 months from today
     public boolean checkDate(int month, int day, int year){
+        if((this.month>12) || (this.day>31) || this.month<1 || this.day<1){
+            System.out.println(this.month+"/"+this.day+"/"+this.year+": Invalid Calendar Date!");
+            return false;
+        }
         Calendar calendar = Calendar.getInstance();
         if(this.year < calendar.get(Calendar.YEAR) || (this.year==calendar.get(Calendar.YEAR) && this.month < calendar.get(Calendar.MONTH)+1) ||
                 (this.year==calendar.get(Calendar.YEAR) && this.month < calendar.get(Calendar.MONTH)+1 && this.day < calendar.get(Calendar.DAY_OF_MONTH))){
-            System.out.println(this.month+"/"+this.month+"/"+this.year+": Event date must be a future date!");
+            System.out.println(this.month+"/"+this.day+"/"+this.year+": Event date must be a future date!");
             return false;
         }
         calendar.add(calendar.MONTH, 6);
-        if(year>calendar.YEAR || (year==calendar.YEAR && month>calendar.MONTH+1) || (year==calendar.YEAR && month==calendar.MONTH+1 && day>calendar.DAY_OF_MONTH)){
-            System.out.println(this.month+"/"+this.month+"/"+this.year+": Event date must be within 6 months!");
+        if(year>calendar.get(Calendar.YEAR) || (year==calendar.get(Calendar.YEAR) && month>calendar.get(Calendar.MONTH)+1) || (year==calendar.get(Calendar.YEAR) && month==calendar.get(Calendar.MONTH)+1 && day>calendar.get(Calendar.DAY_OF_MONTH))){
+            System.out.println(this.month+"/"+this.day+"/"+this.year+": Event date must be within 6 months!");
             return false;
         }
         return true;

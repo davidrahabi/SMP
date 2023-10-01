@@ -38,13 +38,11 @@ public class EventCalendar {
 
     public boolean add(Event event) {
         if(numEvents>0 && find(event)!=-1){
-            System.out.println("Duplicate Event!");
+            System.out.println("The event is already on the calendar.");
             return false;
         }
 
         if(!event.getDate().isValid()){
-            System.out.print("\n"+event.getDate().getMonth()+"/"+event.getDate().getDay()+"/"
-                    +event.getDate().getYear()+": Invalid Date!");
             return false;
         }
         if(!event.getContact().isValid()){
