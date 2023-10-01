@@ -17,27 +17,21 @@ public class EventOrganizer{
         Scanner scanner = new Scanner(System.in);
         System.out.println ("Event Organizer running....");
         while (true){
-            String input = scanner.next();
-            if (input.equals("Q")){
+            String command = scanner.next();
+            String input = scanner.nextLine();
+             if (command.equals("Q")){
                 System.out.println ("Event Organizer terminated");
-                break; }
-            switch(input){
-                case "A": case "R":
-                    Date date = new Date(scanner.next());
-                    Timeslot timeslot = createTimeslot(scanner.next());
-                    if(timeslot==null){ scanner.nextLine(); //going to next input line
-                                        break;       }
-                    Location location = createLocation(scanner.next());
-                    if(location==null){ scanner.nextLine();
-                                        break;       }
-                    if (input.equals("A")){
-                    Department department = createDepartment(scanner.next());
-                    if(department==null){ scanner.nextLine();
-                        break;     }
-                    Contact contact = new Contact(department, scanner.next());
-                    calendar.add(new Event(date,timeslot,location, contact, scanner.nextInt()));
-                    } else if (input.equals("R")) {
-                        calendar.remove(new Event(date,timeslot,location));
+                break;
+             }
+            switch(command){
+                case "A":
+                    if(processAdd(input)!=null) {
+                        calendar.add(processAdd(input));
+                    }
+                    break;
+                case "R":
+                    if(processRemove(input)!=null) {
+                        calendar.remove(processRemove(input));
                     }
                     break;
                 case "P":
@@ -53,9 +47,69 @@ public class EventOrganizer{
                         calendar.printByDepartment();
                         break;
                 default:
-                    System.out.println(input + " is an invalid command!");
+                    System.out.println(command + " is an invalid command!");
                     break;
-            }}}
+            }
+        }
+    }
+
+
+    public Event processAdd(String input){
+       String[] inputArray=input.trim().split("\\s+");
+        Date date = new Date(inputArray[0]);
+        Timeslot timeslot = createTimeslot(inputArray[1]);
+        if(timeslot==null){ //going to next input line
+            return null;
+        }
+        Location location = createLocation(inputArray[2]);
+        if(location==null){
+            return null;
+        }
+        Department department = createDepartment(inputArray[3]);
+        if(department==null){
+            return null;
+        }
+        Contact contact = new Contact(department, inputArray[4]);
+        int duration= Integer.parseInt(inputArray[5]);
+        return new Event(date, timeslot, location, contact, duration);
+    }
+
+    public Event processRemove(String input){
+        String[] inputArray=input.trim().split("\\s+");
+        Date date = new Date(inputArray[0]);
+        Timeslot timeslot = createTimeslot(inputArray[1]);
+        if(timeslot==null){ //going to next input line
+            return null;
+        }
+        Location location = createLocation(inputArray[2]);
+        if(location==null){
+            return null;
+        }
+        return new Event(date, timeslot, location);
+    }
+
+    public boolean isValidEmail(String email){
+        if (email == null){
+            return false;
+        }
+
+
+        int amountOfAts=0;
+        for(int i=0;i<email.length();i++){
+            if(email.charAt(i)=='@'){
+                if(i==0 || i==email.length()-1){
+                    return false;
+                }
+                amountOfAts++;
+            }
+        }
+        if(amountOfAts>1 || amountOfAts==0) return false;
+        else{
+            String[] emailSplit= email.split("@");
+            if(!emailSplit[1].equals("rutgers.edu")) return false;
+        }
+        return true;
+    }
 
     public Timeslot createTimeslot(String time){
         if(time.toLowerCase().equals("afternoon")) return Timeslot.AFTERNOON;
@@ -83,7 +137,7 @@ public class EventOrganizer{
         else if(department.toLowerCase().equals("iti")) return Department.ITI;
         else if(department.toLowerCase().equals("math")) return Department.MATH;
         else if(department.toLowerCase().equals("bait")) return Department.BAIT;
-        System.out.println("Invalid Department!");
+        System.out.println("Invalid contact information!");
         return null;
 
     }

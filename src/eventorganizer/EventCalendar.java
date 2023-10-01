@@ -14,7 +14,7 @@ public class EventCalendar {
 
     }
 
-    private int find(Event event) {//search an event in the list
+    private int find(Event event) {
         final int NOT_FOUND = -1;
     for (int i = 0; i < numEvents; i++){
         if (events[i].equals(event)){
@@ -46,11 +46,11 @@ public class EventCalendar {
             return false;
         }
         if(!event.getContact().isValid()){
-            System.out.println("Invalid Contact!");
+            System.out.println("Invalid contact information!");
             return false;
         }
-        if(event.getDuration()>120){
-            System.out.println("Invalid Duration!");
+        if(event.getDuration()>120 || event.getDuration()<30 ){
+            System.out.println("Event duration must be at least 30 minutes and at most 120 minutes");
             return false;
         }
 
@@ -64,11 +64,16 @@ public class EventCalendar {
     }
 
     public boolean remove(Event event) {
-        int rm = find(event);
-        if(rm==-1){
-            System.out.println("Cannot Remove: Event Does Not Exist");
+        if(!event.getDate().isValid()){
             return false;
         }
+
+        int rm = find(event);
+        if(!contains(event)){
+            System.out.println("Cannot remove; event is not in the calendar!");
+            return false;
+        }
+
         Event[] removeEvent = new Event[size]; //does she want us to decrease array size when removed?
         for (int i = 0; i < numEvents; i++){
             if (i != rm){
@@ -83,7 +88,7 @@ public class EventCalendar {
 
     public boolean contains(Event event) { 
         boolean eventInArray=false;
-        for(int i=0; i < this.events.length; i++){
+        for(int i=0; i < numEvents; i++){
            if(event.equals(events[i])){
             eventInArray=true;
            }
@@ -91,6 +96,7 @@ public class EventCalendar {
         return eventInArray;
     }
     public void print() {
+        System.out.println("* Event calendar *");
         if (numEvents == 0) {
             System.out.println("Event calender is empty!");
         } else {
@@ -98,8 +104,10 @@ public class EventCalendar {
                 System.out.println(events[i].toString());
             }
         } //print the array as is
+        System.out.println("* end of event calendar *");
     }
     public void printByDate() {
+        System.out.println("* Event calendar by event date and start time *");
         if (numEvents == 0) {
             System.out.println("Event calender is empty!");
         } else {
@@ -120,9 +128,11 @@ public class EventCalendar {
                 System.out.println(events[i].toString());
             }
         }
+        System.out.println("* end of event calendar *");
     }
 
     public void printByCampus() {
+        System.out.println("* Event calendar by campus and building *");
         if (numEvents == 0) {
             System.out.println("Event calender is empty!");
         } else {
@@ -163,9 +173,11 @@ public class EventCalendar {
                 System.out.println(sortedEvents[i].toString());
             }
         } //ordered by campus and building/room
+        System.out.println("* end of event calendar *");
     }
 
     public void printByDepartment() {
+        System.out.println("* Event calendar by department *");
         if (numEvents == 0) {
             System.out.println("Event calender is empty!");
         } else {
@@ -224,6 +236,7 @@ public class EventCalendar {
                 System.out.println(sortedEvents[i].toString());
             }
         } //ordered by department
+        System.out.println("* end of event calendar *");
     }
 
 
