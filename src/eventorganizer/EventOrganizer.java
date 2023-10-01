@@ -54,7 +54,11 @@ public class EventOrganizer{
                         break;
                 case "PD":
                         calendar.printByDepartment();
-                        break;}}}
+                        break;
+                default:
+                    System.out.println(input + " is an invalid command!");
+                    break;
+            }}}
 
     public Timeslot createTimeslot(String time){
         if(time.toLowerCase().equals("afternoon")) return Timeslot.AFTERNOON;
