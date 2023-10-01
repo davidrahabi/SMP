@@ -20,8 +20,8 @@ public class Event implements Comparable<Event> {
 
     @Override
     public String toString(){
-        return "[Event Date: " + date.getMonth() + "/" + "/" + date.getDay() + "/" + date.getYear() + "] [Start:" + 
-            startTime.getTime()+"] [End: " + startTime.getEndTime(duration) + "  @" + location.name() + " ("
+        return "[Event Date: " + date.getMonth() + "/" + date.getDay() + "/" + date.getYear() + "] [Start: " +
+            startTime.getTime()+"] [End: " + startTime.getEndTime(duration) + "]  @" + location.name() + " ("
             + location.getBuildingName() +"," + location.getCampus()+") [Contact: " + 
             contact.getDepartment().getDepartmentName() + ", " + contact.getEmail()+"]";
 
@@ -55,6 +55,8 @@ public class Event implements Comparable<Event> {
         this.date=date;
         this.startTime=startTime;
         this.location=location;
+        this.duration=30;
+        this.contact=null;
     }
 
     

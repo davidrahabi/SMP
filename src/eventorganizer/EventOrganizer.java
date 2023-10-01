@@ -12,10 +12,6 @@ public class EventOrganizer{
 
     EventOrganizer(){}
 
-    /*EventOrganizer(EventCalendar calendar){
-        this.calendar=calendar;
-    }*/
-
     public void run(){
         EventCalendar calendar= new EventCalendar();
         Scanner scanner = new Scanner(System.in);
@@ -76,7 +72,7 @@ public class EventOrganizer{
         else if(location.toLowerCase().equals("til232")) return Location.TIL232;
         else if(location.toLowerCase().equals("ab2225")) return Location.AB2225;
         else if(location.toLowerCase().equals("mu302")) return Location.MU302;
-        System.out.println("Invalid Location");
+        System.out.println("Invalid Location!");
         return null;
 
     }
