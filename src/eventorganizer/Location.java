@@ -11,13 +11,13 @@ package eventorganizer;
  * @author David Rahabi, Judah Farkas
  */
 public enum Location{
-
-    HLL114("Hill Center", "Busch"),
     ARC103("Allison Road Classroom", "Busch"),
-    BE_AUD("Beck Hall", "Livingston"),
-    TIL232("Tillett Hall", "Livingston"),
+    HLL114("Hill Center", "Busch"),
     AB2225("Academic Building", "College Avenue"),
-    MU302("Murray Hall", "College Avenue");
+    MU302("Murray Hall", "College Avenue"),
+    BE_AUD("Beck Hall", "Livingston"),
+    TIL232("Tillett Hall", "Livingston");
+
 
     private final String BUILDINGNAME;
     private final String CAMPUS;
