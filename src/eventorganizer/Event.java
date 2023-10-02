@@ -55,8 +55,6 @@ public class Event implements Comparable<Event> {
         this.date=date;
         this.startTime=startTime;
         this.location=location;
-        this.duration=30;
-        this.contact=null;
     }
 
     
