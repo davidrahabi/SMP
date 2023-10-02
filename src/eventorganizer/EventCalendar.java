@@ -2,11 +2,40 @@ package eventorganizer;
 
 import java.sql.SQLOutput;
 
+/** EventCalendar class holds the events and prints when called
+ * consists of 10 methods
+ * EventCalendar(){}
+ * Initializes the events array
+ * find(){}
+ * used to find an event in the events array
+ * grow(){}
+ * used to increase the events array when it reaches capacity
+ * add(){}
+ * Adds an event to the events array
+ * remove(){}
+ * removes an event from the events array
+ * contains(){}
+ * used to check if the events array contains an event
+ * print(){}
+ * Prints the events in events array
+ * printByDate(){}
+ * Prints the events sorted by date and timeslot
+ * printByCampus(){}
+ * Prints the events sorted by campus
+ * printByDepartment(){}
+ * Prints the events sorted by department
+ *
+ * @author David Rahabi, Judah Farkas
+ */
 public class EventCalendar {
     private Event [] events; //the array holding the list of events
     private int numEvents; //current number of events in the array
     private int size; // size of the array
 
+    /** EventCalendar constructs the events array
+     * gives it a size of 4 starting off
+     * sets the number of events to 0
+     */
     public EventCalendar(){
         this.size = 4;
         this.events = new Event[size];
@@ -14,6 +43,10 @@ public class EventCalendar {
 
     }
 
+    /** Find event in the events array
+     * @param event the event to find
+     * @return -1 if event is not found, otherwise return the array value of event
+     */
     private int find(Event event) {
         final int NOT_FOUND = -1;
     for (int i = 0; i < numEvents; i++){
@@ -23,7 +56,10 @@ public class EventCalendar {
         
         }
         return NOT_FOUND;
-    } 
+    }
+
+    /** Grow increases the events array by 4 if it reaches max capacity
+     */
     private void grow() { //increase the capacity by 4
         this.size = size + 4;
         Event[] growEvents = new Event[size];
@@ -34,14 +70,24 @@ public class EventCalendar {
         }
         this.events = growEvents;
 
-    } 
+    }
 
+    /** Adds event to events array
+     * this method also checks if the event has valid parameters to add the event to the array
+     * checks for:
+     * if the event is already in the array
+     * valid date
+     * valid contact information
+     * valid duration
+     * valid array size, if not, increase array size
+     * @param event event to add
+     * @return true ; event added, false if invalid date, contact, duration, or event is already added
+     */
     public boolean add(Event event) {
         if(numEvents>0 && find(event)!=-1){
             System.out.println("The event is already on the calendar.");
             return false;
         }
-
         if(!event.getDate().isValid()){
             return false;
         }
@@ -53,7 +99,6 @@ public class EventCalendar {
             System.out.println("Event duration must be at least 30 minutes and at most 120 minutes");
             return false;
         }
-
         if (this.numEvents == this.size){
             grow();
         }
@@ -63,6 +108,14 @@ public class EventCalendar {
         return true;
     }
 
+
+    /** Removes event to events array
+     * this method also checks if the event has valid parameters to remove
+     * checks for:
+     * if the event is in the array
+     * @param event event to remove
+     * @return true ; event added, false if event is not in the events array
+     */
     public boolean remove(Event event) {
         if(!event.getDate().isValid()){
             return false;
@@ -92,7 +145,12 @@ public class EventCalendar {
      }
 
 
-    public boolean contains(Event event) { 
+    /** Contains method checks if the event is in the events array
+     * boolean method
+     * @param event event to check
+     * @return true if event is in array, false if not
+     */
+    public boolean contains(Event event)  {
         boolean eventInArray=false;
         for(int i=0; i < numEvents; i++){
            if(event.equals(events[i])){
@@ -101,6 +159,9 @@ public class EventCalendar {
         }
         return eventInArray;
     }
+
+    /** Prints array in input order
+     */
     public void print() {
         if (numEvents == 0) {
             System.out.println("Event calender is empty!");
@@ -117,6 +178,9 @@ public class EventCalendar {
             System.out.println("* end of event calendar *");
         }
     }
+
+    /** Prints array sorted by date and timeslot
+     */
     public void printByDate() {
         if (numEvents == 0) {
             System.out.println("Event calender is empty!");
@@ -143,6 +207,8 @@ public class EventCalendar {
         }
     }
 
+    /** Prints array sorted by campus
+     */
     public void printByCampus() {
         if (numEvents == 0) {
             System.out.println("Event calender is empty!");
@@ -158,6 +224,8 @@ public class EventCalendar {
     } //ordered by campus and building/room
 
 
+    /** Prints array sorted by department
+     */
     public void printByDepartment() {
 
         if (numEvents == 0) {
