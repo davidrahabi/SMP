@@ -69,19 +69,25 @@ public class EventCalendar {
         }
 
         int rm = find(event);
-        if(!contains(event)){
+        if(find(event)==-1){
             System.out.println("Cannot remove; event is not in the calendar!");
             return false;
         }
 
         Event[] removeEvent = new Event[size]; //does she want us to decrease array size when removed?
+        int count=0;
         for (int i = 0; i < numEvents; i++){
             if (i != rm){
-                removeEvent[i] = events[i];
+                removeEvent[count] = events[i];
+                count++;
+            }
+            else{
+                continue;
             }
         }
         this.events = removeEvent;
         this.numEvents--;
+        System.out.println("Event has been removed from the calendar!");
         return true;
      }
 
