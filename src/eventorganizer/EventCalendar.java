@@ -122,22 +122,21 @@ public class EventCalendar {
             System.out.println("Event calender is empty!");
         } else {
             System.out.println("* Event calendar by event date and start time *");
-            Event[] sortedDate=events.clone();
             for (int i = 0; i < numEvents; i++) { //sorting the events array by date using selection sort
-                Event earliestEvent = sortedDate[i];
+                Event earliestEvent = events[i];
                 int placeToSwitch = i;
                 for (int p = i + 1; p < numEvents; p++) {
-                    if (sortedDate[p].compareTo(earliestEvent) < 0) {
-                        earliestEvent = sortedDate[p];
+                    if (events[p].compareTo(earliestEvent) < 0) {
+                        earliestEvent = events[p];
                         placeToSwitch = p;
                     }
                 }
-                Event temp = sortedDate[placeToSwitch];
-                sortedDate[placeToSwitch] = sortedDate[i];
-                sortedDate[i] = temp;
+                Event temp = events[placeToSwitch];
+                events[placeToSwitch] = events[i];
+                events[i] = temp;
             } // events is now sorted
             for (int i = 0; i < numEvents; i++) {
-                System.out.println(sortedDate[i].toString());
+                System.out.println(events[i].toString());
             }
             System.out.println("* end of event calendar *");
         }
@@ -148,10 +147,21 @@ public class EventCalendar {
             System.out.println("Event calender is empty!");
         } else {
             System.out.println("* Event calendar by campus and building *");
-            Event[] sortedEvents = sortByCampus(events); //making a new array to store the events sorted by campus in alphabetical order
-            // sortedEvents is now sorted by campus alphabetically
+            for (int i = 0; i < numEvents; i++) { //sorting the events array by date using selection sort
+                Event firstCampus = events[i];
+                int placeToSwitch = i;
+                for (int p = i + 1; p < numEvents; p++) {
+                    if (events[p].getLocation().compareTo(firstCampus.getLocation()) < 0) {
+                        firstCampus = events[p];
+                        placeToSwitch = p;
+                    }
+                }
+                Event temp = events[placeToSwitch];
+                events[placeToSwitch] = events[i];
+                events[i] = temp;
+            }
             for (int i = 0; i < numEvents; i++) {
-                System.out.println(sortedEvents[i].toString());
+                System.out.println(events[i].toString());
             }
             System.out.println("* end of event calendar *");
         }
@@ -164,9 +174,21 @@ public class EventCalendar {
             System.out.println("Event calender is empty!");
         } else {
             System.out.println("* Event calendar by department *");
-            Event[] sortedEvents = sortByDepartment(events); //making a new array to store the events sorted by campus in alphabetical order
-            for (int i = 0; i < sortedEvents.length; i++) {
-                System.out.println(sortedEvents[i].toString());
+            for (int i = 0; i < numEvents; i++) { //sorting the events array by date using selection sort
+                Event firstDepartment = events[i];
+                int placeToSwitch = i;
+                for (int p = i + 1; p < numEvents; p++) {
+                    if (events[p].getContact().getDepartment().compareTo(firstDepartment.getContact().getDepartment()) < 0) {
+                        firstDepartment = events[p];
+                        placeToSwitch = p;
+                    }
+                }
+                Event temp = events[placeToSwitch];
+                events[placeToSwitch] = events[i];
+                events[i] = temp;
+            }
+            for (int i = 0; i < numEvents; i++) {
+                System.out.println(events[i].toString());
             }
             System.out.println("* end of event calendar *");
 
@@ -174,7 +196,7 @@ public class EventCalendar {
 
     }
 
-    public Event[] sortByCampus(Event[] array){
+    /*public Event[] sortByCampus(Event[] array){
         Event[] sortedByCampus=new Event[numEvents];
         int numElements_InSortedEvents = 0;
         for (int i = 0; i < 6; i++) {
@@ -205,8 +227,8 @@ public class EventCalendar {
             }
         }
         return sortedByCampus;
-    }
-    public Event[] sortByDepartment(Event[] array){
+    }*/
+   /* public Event[] sortByDepartment(Event[] array){
         Event[] sortedDepartment=new Event[numEvents];
         int numElements_InSortedDepartment=0;
         for (int i = 0; i < 5; i++) {
@@ -240,7 +262,7 @@ public class EventCalendar {
             }
         }
         return sortedDepartment;
-    }
+    }*/
 
 
 
