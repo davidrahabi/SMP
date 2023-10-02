@@ -8,7 +8,7 @@ public enum Location{
     AB2225("Academic Building", "College Avenue"),
     MU302("Murray Hall", "College Avenue");
 
-    private final String BUILDINGNAME;  //do these have to be static??
+    private final String BUILDINGNAME;
     private final String CAMPUS;
 
     Location(String building, String campus){
