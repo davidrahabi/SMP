@@ -2,6 +2,14 @@ package eventorganizer;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
+/**
+ * The goal of this class is to take all the commands inputs and return the correct outputs, while also checking for invalid inputs
+ * This class uses 4 methods, run();, createTimeslot();, createLocation();, and createDepartment();
+ * the run(); method takes the command inputs and determines which classes/files to call.
+ * It also determines if a command is invalid.
+ * createTimeslot();, createLocation();, and createDepartment(); calls the Enum classes to determine if the Enum inputs are valid
+ * @author David Rahabi, Judah Farkas
+ */
 public class EventOrganizer{
     /**
      * add package header to every file
@@ -12,6 +20,17 @@ public class EventOrganizer{
 
     EventOrganizer(){}
 
+    /** Begins scanner, reads the inputted commands, and executes
+     * Commands are as follows:
+     * A: adds event
+     * R: removes event
+     * P: Prints all events in the array in inputted order
+     * PE: Prints events sorted by date
+     * PC: Prints events ordered by campus
+     * PD: Prints events sorted by department
+     * Q: terminated program
+     * all other commands should print as an invalid command
+     */
     public void run(){
         EventCalendar calendar= new EventCalendar();
         Scanner scanner = new Scanner(System.in);
@@ -53,7 +72,11 @@ public class EventOrganizer{
         }
     }
 
-
+    /** processAdd takes input as a string and makes it into an array of elements to be used to create an event
+     * returns null if invalid timeslot, location or department
+     * @param input the scanner input string
+     * @return event unless timeslot, location, or department is invalid
+     */
     public Event processAdd(String input){
        String[] inputArray=input.trim().split("\\s+");
         Date date = new Date(inputArray[0]);
@@ -74,6 +97,11 @@ public class EventOrganizer{
         return new Event(date, timeslot, location, contact, duration);
     }
 
+    /** processAdd takes input as a string and makes it into an array of elements tobe used to remove an event
+     * returns null if invalid timeslot or location
+     * @param input the scanner input string
+     * @return event unless timeslot, location, or department is invalid
+     */
     public Event processRemove(String input){
         String[] inputArray=input.trim().split("\\s+");
         Date date = new Date(inputArray[0]);
@@ -88,6 +116,11 @@ public class EventOrganizer{
         return new Event(date, timeslot, location);
     }
 
+    /** isValidEmail validated the email ensuring it is [USER}@rutgers.edu
+     *
+     * @param email users email
+     * @return true , if email is invalid return false
+     */
     public boolean isValidEmail(String email){
         if (email == null){
             return false;
@@ -111,6 +144,12 @@ public class EventOrganizer{
         return true;
     }
 
+    /** createTimeslot takes the inputted timeslot from the run(); function and returns the Enum value
+     * returns null if invalid Enum
+     * @param time  the timeslot input string
+     * @return correct timeslot Enum value
+     */
+
     public Timeslot createTimeslot(String time){
         if(time.toLowerCase().equals("afternoon")) return Timeslot.AFTERNOON;
         else if(time.toLowerCase().equals("morning")) return Timeslot.MORNING;
@@ -118,6 +157,12 @@ public class EventOrganizer{
         System.out.println("Invalid time slot!");
         return null;
     }
+
+    /** createLocation takes the inputted location from the run(); function and returns the Enum value
+     * returns null if invalid Enum
+     * @param location;  the location input string
+     * @return correct location Enum value
+     */
 
     public Location createLocation(String location){
         if(location.toLowerCase().equals("hll114")) return Location.HLL114;
@@ -130,6 +175,12 @@ public class EventOrganizer{
         return null;
 
     }
+
+    /** createDepartment takes the inputted department from the run(); function and returns the Enum value
+     * returns null if invalid Enum
+     * @param department;  the department input string
+     * @return correct department Enum value
+     */
 
     public Department createDepartment(String department){
         if(department.toLowerCase().equals("cs")) return Department.CS;

@@ -1,6 +1,28 @@
 package eventorganizer;
 import java.util.Calendar;
 
+/**
+ * The Date class is the primary class that stores the inputted date
+ * the class contains 10 methods
+ * Date(String date){}:
+ * This method takes the string input of the date (ex:6/12/2023) and converts it into an int
+ * isValid();
+ * This method checks if the date is a valid date
+ * checkIfDateIsCorrect();
+ * This method determines if the date is correct according to it being a leap year
+ * checkDate();
+ * this method checks if the date is a valid date ensuring it is at least 6 months away
+ * it also determines that the inputted date is not a past date
+ * date();
+ * contsructor for the year, month, day
+ * getYear(), getMonth(), getDay()
+ * getter methods for year, month and day
+ * equals()
+ * check if the date is equal to the object date
+ * compareTo()
+ * compares the private date to the Date date
+ * @author Judah Farkas, David Rahabi
+ */
 public class Date implements Comparable<Date> { // add comparable method
     private int year;
     private int month;
@@ -9,19 +31,34 @@ public class Date implements Comparable<Date> { // add comparable method
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
 
+    /** Constructor that splits the given date from string into ints
+     * input: 6/12/23
+     * month = 6
+     * day = 12
+     * year= 2023
+     * @param date string with the date
+     */
     Date(String date){
         String [] splitD = date.split("/");
         this.month = Integer.parseInt(splitD[0]);
         this.day = Integer.parseInt(splitD[1]);
         this.year = Integer.parseInt(splitD[2]);
     }
-    public boolean isValid() { // check if the date is a valid calendar date
+
+    /** Checks if date is a valid calendar date
+     *
+     * @return true, if date is invalid return false
+     */
+    public boolean isValid() {
         if(!checkIfDateIsCorrect() || !checkDate(this.month, this.day, this.year) ){
             return false;
         }
         return true;
     }
 
+    /** An extension to the isValid method, checks if the date is valid date as well as a leap year
+     * @return true if date is valid, false if invalid date or leap year
+     */
     public boolean checkIfDateIsCorrect(){
         if (this.year > 1900) {
             switch (this.month) {
@@ -56,7 +93,14 @@ public class Date implements Comparable<Date> { // add comparable method
         }
         return true;
     }
-    //an extension of isValid to check if date is in the past or greater than 6 months from today
+
+    /** Checks if the Date is a valid date that isnt in the past or 6 months away
+     *
+     * @param month month
+     * @param day day
+     * @param year year
+     * @return true if valid, false if not
+     */
     public boolean checkDate(int month, int day, int year){
         if((this.month>12) || (this.day>31) || this.month<1 || this.day<1){
             System.out.println(this.month+"/"+this.day+"/"+this.year+": Invalid Calendar Date!");
@@ -76,19 +120,38 @@ public class Date implements Comparable<Date> { // add comparable method
         return true;
     }
 
+    /** Constructor for the date class
+     *
+     * @param month month
+     * @param day day
+     * @param year year
+     */
     Date(int month, int day, int year){
         this.year = year;
         this.month = month;
         this.day = day;
     }
+
+    /** Getter method for the year
+     *
+     * @return year
+     */
     public int getYear() {
         return year;
     }
 
+    /** Getter method for month
+     *
+     * @return month
+     */
     public int getMonth() {
         return month;
     }
 
+    /** Getter method for day
+     *
+     * @return day
+     */
     public int getDay() {
         return day;
     }
@@ -128,6 +191,10 @@ public class Date implements Comparable<Date> { // add comparable method
          * NEED TO CHECK IS THIS IS OK TO DO/ THIS IS HOW WE ARE SUPPOSED TO DO THIS
          */
     }
+
+    /** test cases
+     * @param args
+     */
     public static  void main(String[] args){
         testDaysInFeb_NonLeap();
         testDaysInFeb_Leap();
