@@ -1,5 +1,7 @@
 package eventorganizer;
-/** The Location enumb class gives values to the input using enumb
+
+/**
+ * The Location enumb class gives values to the input using enumb
  * in this class there is 3 methods
  * Location();
  * constructor for the location class
@@ -10,7 +12,7 @@ package eventorganizer;
  *
  * @author David Rahabi, Judah Farkas
  */
-public enum Location{
+public enum Location {
     ARC103("Allison Road Classroom", "Busch"),
     HLL114("Hill Center", "Busch"),
     AB2225("Academic Building", "College Avenue"),
@@ -22,29 +24,32 @@ public enum Location{
     private final String BUILDINGNAME;
     private final String CAMPUS;
 
-    /** Constructor for location
+    /**
+     * Constructor for location
      *
      * @param building building name
-     * @param campus campus name
+     * @param campus   campus name
      */
-    Location(String building, String campus){
-        this.BUILDINGNAME=building;
-        this.CAMPUS=campus;
+    Location(String building, String campus) {
+        this.BUILDINGNAME = building;
+        this.CAMPUS = campus;
     }
 
-    /** getter method for building name
+    /**
+     * getter method for building name
      *
      * @return this.BUILDINGNAME
      */
-    public String getBuildingName(){
+    public String getBuildingName() {
         return this.BUILDINGNAME;
     }
 
-    /** getter method for campus
+    /**
+     * getter method for campus
      *
      * @return this.CAMPUS
      */
-    public String getCampus(){
+    public String getCampus() {
         return this.CAMPUS;
     }
 
